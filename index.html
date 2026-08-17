@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مزارع عمّ ريش — حجز موعد عصر الزيتون</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#241B2E;
+    --leaf:#6B8E23;
+    --olive-deep:#3E4A26;
+    --ripe:#7A3468;
+    --ripe-deep:#5A2049;
+    --gold:#D4A017;
+    --gold-light:#F3C94D;
+    --terracotta:#D1552E;
+    --terracotta-deep:#B03F1F;
+    --parchment:#FDF8EC;
+    --parchment-dim:#F7E9C6;
+    --line:rgba(36,27,46,0.12);
+    --shadow:0 14px 34px rgba(90,32,73,0.16);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Tajawal', sans-serif;
+    background:var(--parchment);
+    color:var(--ink);
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  .display{font-family:'Aref Ruqaa', serif;}
+  a{color:inherit;}
+
+  /* ===== Colorful backdrop blobs ===== */
+  .blob{
+    position:fixed; border-radius:50%; filter:blur(60px); opacity:.35; z-index:0; pointer-events:none;
+  }
+  .blob1{width:340px; height:340px; background:var(--gold-light); top:-120px; right:-100px;}
+  .blob2{width:280px; height:280px; background:var(--ripe); bottom:10%; left:-120px; opacity:.25;}
+  .blob3{width:220px; height:220px; background:var(--leaf); top:40%; right:-80px; opacity:.2;}
+
+  .wrap{max-width:960px; margin:0 auto; padding:0 24px; position:relative; z-index:1;}
+
+  /* ===== Hero ===== */
+  header.hero{
+    padding:64px 0 40px;
+    position:relative;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:14px; letter-spacing:.04em; color:var(--ripe-deep);
+    font-weight:700; margin-bottom:18px;
+    background:linear-gradient(90deg, var(--gold-light), transparent);
+    padding:6px 14px 6px 0; border-radius:20px;
+  }
+  .eyebrow::before{
+    content:""; width:26px; height:2px; background:var(--terracotta); display:inline-block;
+  }
+  h1{
+    font-size:clamp(38px, 6vw, 64px);
+    font-weight:700;
+    color:var(--ink);
+    line-height:1.15;
+    margin-bottom:18px;
+  }
+  h1 span{
+    background:linear-gradient(90deg, var(--olive-deep), var(--leaf) 45%, var(--gold) 90%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero-sub{
+    font-size:18px; color:#4A3B4A; max-width:560px; margin-bottom:28px;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:12px 16px; font-size:14px; font-weight:700;
+  }
+  .pill{
+    display:flex; align-items:center; gap:8px; padding:9px 16px; border-radius:30px;
+    background:#fff; box-shadow:0 4px 14px rgba(90,32,73,0.1);
+  }
+  .pill.gold{color:#7A5A0A; background:linear-gradient(135deg,#fff, var(--parchment-dim));}
+  .pill.ripe{color:var(--ripe-deep); background:linear-gradient(135deg,#fff,#F3E3EE);}
+  .dot{width:7px; height:7px; border-radius:50%; background:var(--terracotta); flex-shrink:0;}
+
+  .branch{
+    position:absolute; left:24px; top:24px; width:190px; opacity:.95;
+    animation: sway 7s ease-in-out infinite;
+    transform-origin: 20% 90%;
+  }
+  @keyframes sway{
+    0%,100%{transform:rotate(-3deg);}
+    50%{transform:rotate(2deg);}
+  }
+  @media (max-width:760px){ .branch{display:none;} }
+
+  hr.rule{
+    border:none; height:2px;
+    background:linear-gradient(90deg, var(--leaf), var(--gold), var(--ripe), var(--terracotta));
+    opacity:.55; border-radius:2px;
+  }
+
+  /* ===== Intro strip ===== */
+  section.intro{padding:44px 0 8px;}
+  .intro-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  @media (max-width:700px){ .intro-grid{grid-template-columns:1fr;} }
+  .intro-card{
+    background:#fff; border-radius:16px; padding:20px; box-shadow:var(--shadow);
+    border-top:4px solid var(--leaf);
+  }
+  .intro-card:nth-child(2){border-top-color:var(--gold);}
+  .intro-card:nth-child(3){border-top-color:var(--ripe);}
+  .intro-card .num{font-family:'Aref Ruqaa',serif; font-size:26px; color:var(--terracotta); margin-bottom:6px;}
+  .intro-card .txt{font-size:14px; color:#4A3B4A;}
+
+  /* ===== Form ===== */
+  section.form-section{padding:44px 0 80px;}
+  .section-title{font-size:26px; font-weight:700; color:var(--ink); margin-bottom:6px;}
+  .section-desc{color:#5A4A57; font-size:15px; margin-bottom:26px; max-width:600px;}
+
+  .card{
+    background:#fff; border-radius:20px; box-shadow:var(--shadow); padding:38px 34px;
+    border:1px solid var(--line); position:relative; overflow:hidden;
+  }
+  .card::before{
+    content:""; position:absolute; top:0; right:0; left:0; height:6px;
+    background:linear-gradient(90deg, var(--leaf), var(--gold), var(--terracotta), var(--ripe));
+  }
+  .field{margin-bottom:22px;}
+  label{display:block; font-size:14px; font-weight:700; color:var(--ink); margin-bottom:8px;}
+  .hint{font-size:12.5px; color:#8A7690; margin-top:6px;}
+  input, select{
+    width:100%; padding:13px 14px; font-size:15px; font-family:inherit;
+    border:1.5px solid var(--line); border-radius:10px; background:var(--parchment);
+    color:var(--ink); transition:border-color .15s, background .15s, box-shadow .15s;
+  }
+  input:focus, select:focus{
+    outline:none; border-color:var(--gold); background:#fff;
+    box-shadow:0 0 0 4px rgba(212,160,23,0.18);
+  }
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:600px){ .row2{grid-template-columns:1fr;} }
+
+  .live-estimate{
+    background:linear-gradient(135deg, var(--parchment-dim), #F3E3EE);
+    border:1px dashed var(--ripe);
+    border-radius:12px; padding:14px 16px; font-size:14px; color:var(--ink);
+    display:none; margin-bottom:24px; align-items:center; gap:10px;
+  }
+  .live-estimate.show{display:flex;}
+  .live-estimate b{color:var(--terracotta-deep);}
+
+  button.submit{
+    width:100%; padding:16px; font-size:16px; font-weight:700; font-family:inherit;
+    background:linear-gradient(90deg, var(--terracotta), var(--ripe-deep));
+    color:#fff; border:none; border-radius:12px; cursor:pointer;
+    transition:filter .15s, transform .1s; box-shadow:0 8px 20px rgba(209,85,46,0.35);
+  }
+  button.submit:hover{filter:brightness(1.08);}
+  button.submit:active{transform:scale(.99);}
+  button.submit:disabled{opacity:.6; cursor:not-allowed;}
+
+  .result{
+    margin-top:24px; border-radius:14px; padding:22px 22px; display:none;
+  }
+  .result.show{display:block;}
+  .result.ok{background:linear-gradient(135deg,#EEF3E2,#FBF3D9); border:1px solid var(--leaf);}
+  .result.err{background:#FBEAE3; border:1px solid var(--terracotta);}
+  .result h3{font-size:17px; margin-bottom:10px; color:var(--ink);}
+  .result .grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 20px; font-size:14px;}
+  .result .grid div span{display:block; font-size:12px; color:#8A7690; margin-bottom:2px;}
+  .result .grid div b{color:var(--ripe-deep); font-size:15px;}
+  .result .note{margin-top:12px; font-size:13px; color:#6b5f47;}
+
+  .days-list{display:flex; flex-direction:column; gap:8px; margin-top:6px;}
+  .day-row{
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    background:#fff; border-radius:10px; padding:10px 14px; font-size:13.5px;
+    border:1px solid var(--line);
+  }
+  .day-row .day-label{font-weight:700; color:var(--terracotta-deep); flex-shrink:0;}
+  .day-row .day-date{color:var(--ink); font-weight:500;}
+  .day-row .day-time{color:#6b5f47; font-size:13px;}
+
+  .quality-notice{
+    background:linear-gradient(135deg, #FBEAE3, #FDF3E6);
+    border:1.5px solid var(--terracotta);
+    border-radius:14px; padding:16px 20px; margin-bottom:26px;
+    font-weight:700; font-size:15px; color:var(--terracotta-deep); line-height:1.8;
+  }
+
+  .harvest-link{
+    display:flex; align-items:center; gap:14px; text-decoration:none;
+    background:linear-gradient(135deg,#fff, var(--parchment-dim));
+    border:1.5px solid var(--line); border-radius:16px; padding:16px 20px;
+    box-shadow:var(--shadow); margin-top:22px; transition:transform .15s, box-shadow .15s;
+  }
+  .harvest-link:hover{transform:translateY(-2px); box-shadow:0 18px 40px rgba(90,32,73,0.22);}
+  .harvest-link .icon{
+    width:46px; height:46px; border-radius:12px; flex-shrink:0;
+    background:linear-gradient(135deg, var(--leaf), var(--olive-deep));
+    display:flex; align-items:center; justify-content:center; font-size:22px;
+  }
+  .harvest-link .txt{flex:1;}
+  .harvest-link .txt .title{font-weight:700; font-size:15.5px; color:var(--ink);}
+  .harvest-link .txt .sub{font-size:13px; color:#6b5f47; margin-top:2px;}
+  .harvest-link .arrow{font-size:20px; color:var(--terracotta); flex-shrink:0;}
+
+  .config-warning{
+    background:#FCEFC7; border:1px solid var(--gold); color:#5c4a12;
+    border-radius:12px; padding:14px 16px; font-size:13.5px; margin-bottom:24px;
+  }
+
+  footer{
+    padding:36px 0 60px; text-align:center; color:#8a7690; font-size:13px;
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="wrap">
+  <header class="hero">
+    <svg class="branch" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 110 C 60 90, 90 60, 170 15" stroke="#6B8E23" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="60" cy="88" rx="12" ry="6" fill="#6B8E23" transform="rotate(-30 60 88)"/>
+      <ellipse cx="90" cy="68" rx="12" ry="6" fill="#6B8E23" transform="rotate(-35 90 68)"/>
+      <ellipse cx="120" cy="48" rx="12" ry="6" fill="#6B8E23" transform="rotate(-40 120 48)"/>
+      <ellipse cx="150" cy="30" rx="12" ry="6" fill="#6B8E23" transform="rotate(-42 150 30)"/>
+      <circle cx="75" cy="78" r="5" fill="#D4A017"/>
+      <circle cx="105" cy="58" r="5" fill="#7A3468"/>
+      <circle cx="135" cy="38" r="5" fill="#D1552E"/>
+    </svg>
+    <div class="eyebrow">مزارع عمّ ريش</div>
+    <h1>احجز ميعادك<br><span>لعصر الزيتون</span></h1>
+    <p class="hero-sub">اختر نوع الزيتون ووزنه وتاريخك المفضّل، وهنؤكد لك ميعاد الحضور الدقيق فورًا.</p>
+  </header>
+
+  <hr class="rule">
+
+  <section class="intro">
+    <div class="intro-grid">
+      <div class="intro-card">
+        <div class="num">۱</div>
+        <div class="txt">اكتب بيانات محصولك: النوع والوزن والتاريخ اللي يناسبك</div>
+      </div>
+      <div class="intro-card">
+        <div class="num">۲</div>
+        <div class="txt">النظام يحسب لك تلقائيًا أقرب ميعاد متاح</div>
+      </div>
+      <div class="intro-card">
+        <div class="num">۳</div>
+        <div class="txt">تستلم تأكيد فوري على الموقع وعلى بريدك الإلكتروني</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <div class="card">
+      <div class="quality-notice">
+        للحفاظ علي جودة الزيت الخاص بالعملاء يرجي تحديد موعد منفصل لعصر الفرزات و الارضيات
+      </div>
+
+      <div class="section-title" style="margin-bottom:4px;">بيانات الحجز</div>
+      <p class="section-desc" style="margin-bottom:26px;">هنبعتلك تأكيد على البريد الإلكتروني فور إرسال الطلب.</p>
+
+      <div id="configWarning" class="config-warning" style="display:none;">
+        ⚠️ الموقع لسه مش متصل بنظام الحجز. لو انت صاحب الموقع، افتح ملف index.html وحط رابط الـ Apps Script بتاعك في متغيّر APPS_SCRIPT_URL.
+      </div>
+
+      <form id="bookingForm">
+        <div class="field">
+          <label for="name">الاسم أو اسم الشركة</label>
+          <input type="text" id="name" required placeholder="مثال: أحمد محمود">
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="oliveType">نوع الزيتون</label>
+            <select id="oliveType" required>
+              <option value="" disabled selected>اختر النوع</option>
+              <option value="بيكوال">بيكوال</option>
+              <option value="منزانيلو">منزانيلو</option>
+              <option value="دولسي">دولسي</option>
+              <option value="كورتينا">كورتينا</option>
+              <option value="رسروناكي">رسروناكي</option>
+              <option value="اربكينا">اربكينا</option>
+              <option value="اربوزانا">اربوزانا</option>
+              <option value="مراقي">مراقي</option>
+              <option value="فرزات">فرزات</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="weight">الوزن بالكيلوجرام</label>
+            <input type="number" id="weight" min="1" step="1" required placeholder="مثال: 850">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="date">التاريخ المطلوب للعصر</label>
+          <input type="date" id="date" required min="2026-09-01" max="2026-12-30">
+          <div class="hint">لو التاريخ ده مليان، هنرشّح لك أقرب ميعاد فاضٍ تلقائيًا.</div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="email">البريد الإلكتروني</label>
+            <input type="email" id="email" required placeholder="example@email.com">
+          </div>
+          <div class="field">
+            <label for="phone">رقم الهاتف (اختياري)</label>
+            <input type="tel" id="phone" placeholder="01xxxxxxxxx">
+          </div>
+        </div>
+
+        <button type="submit" class="submit" id="submitBtn">تأكيد الحجز</button>
+      </form>
+
+      <div id="result" class="result"></div>
+
+      <a href="harvest.html" class="harvest-link">
+        <div class="icon">🌾</div>
+        <div class="txt">
+          <div class="title">خدمة الحصاد الآلي</div>
+          <div class="sub">احجز موعد لجمع محصولك من الأرض</div>
+        </div>
+        <div class="arrow">←</div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    مزارع عمّ ريش — موسم عصر 2026
+  </footer>
+</div>
+
+<script>
+  // ====== إعداد الاتصال بنظام الحجز (Google Apps Script Web App) ======
+  // بعد نشر الـ Apps Script كـ Web App، الصق الرابط هنا بين علامتي التنصيص
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxeUOaPtNm7C0onwuGjcvrIQ9V6-Qs53zhJZ4On2ZM3ObzkRZ4Axc0Mbh1BNvoZaejYoQ/exec";
+
+  if (APPS_SCRIPT_URL.indexOf('PASTE_YOUR') === 0) {
+    document.getElementById('configWarning').style.display = 'block';
+  }
+
+  const form = document.getElementById('bookingForm');
+  const resultBox = document.getElementById('result');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    resultBox.className = 'result';
+    resultBox.innerHTML = '';
+
+    if (APPS_SCRIPT_URL.indexOf('PASTE_YOUR') === 0) {
+      resultBox.className = 'result err show';
+      resultBox.innerHTML = '<h3>الموقع غير جاهز لاستقبال الحجوزات بعد</h3><p class="note">برجاء التواصل معنا مباشرة لإتمام حجزك.</p>';
+      return;
+    }
+
+    const payload = {
+      type: "press",
+      name: document.getElementById('name').value.trim(),
+      oliveType: document.getElementById('oliveType').value,
+      weightKg: parseFloat(document.getElementById('weight').value),
+      date: document.getElementById('date').value,
+      email: document.getElementById('email').value.trim(),
+      phone: document.getElementById('phone').value.trim()
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'جاري إرسال الحجز...';
+
+    try {
+      const res = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        resultBox.className = 'result ok show';
+
+        let scheduleHtml;
+        if (data.multiDay) {
+          scheduleHtml = '<div class="days-list">' + data.days.map((d, i) => `
+            <div class="day-row">
+              <span class="day-label">يوم ${i + 1}</span>
+              <span class="day-date">${d.date}</span>
+              <span class="day-time">${d.start} — ${d.end}</span>
+            </div>
+          `).join('') + '</div>';
+        } else {
+          const d = data.days[0];
+          scheduleHtml = `
+            <div class="grid">
+              <div><span>التاريخ</span><b>${d.date}</b></div>
+              <div><span>موعد الحضور</span><b>${data.arrival}</b></div>
+              <div><span>بداية العصر</span><b>${d.start}</b></div>
+              <div><span>نهاية العصر المتوقعة</span><b>${d.end}</b></div>
+            </div>`;
+        }
+
+        resultBox.innerHTML = `
+          <h3>✅ تم تأكيد حجزك</h3>
+          ${data.multiDay ? `<p class="note" style="margin:0 0 12px;">نظرًا لكمية المحصول، تم توزيع العصر على ${data.days.length} أيام. موعد حضورك الأول لإنهاء الأوراق: <b>${data.arrival}</b></p>` : ''}
+          ${scheduleHtml}
+          ${data.adjusted ? '<p class="note">ملحوظة: التاريخ اللي طلبته كان محجوز بالكامل، فتم ترشيح أقرب ميعاد فاضٍ لك.</p>' : ''}
+          <p class="note">تم إرسال نسخة من التأكيد إلى بريدك الإلكتروني.</p>
+        `;
+        form.reset();
+      } else {
+        resultBox.className = 'result err show';
+        resultBox.innerHTML = `<h3>تعذّر إتمام الحجز</h3><p class="note">${data.error || 'حدث خطأ غير متوقع، برجاء المحاولة مرة أخرى.'}</p>`;
+      }
+    } catch (err) {
+      resultBox.className = 'result err show';
+      resultBox.innerHTML = '<h3>تعذّر الاتصال بنظام الحجز</h3><p class="note">تأكد من اتصالك بالإنترنت وحاول مرة أخرى.</p>';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'تأكيد الحجز';
+    }
+  });
+</script>
+
+</body>
+</html>
